@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // console.log("Loaded");
     myBlock = document.createElement('div');
-    myBlock.innerText = "hello World";
+    myBlock.innerText = "hello!!";
     document.body.appendChild(myBlock);
     styles();
     myFunctionList = document.createElement('div');
