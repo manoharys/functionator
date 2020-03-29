@@ -1,5 +1,6 @@
 let myBlock;
-
+let myFunctionList;
+let funList = [];
 document.addEventListener('DOMContentLoaded', () => {
 
     console.log("Loaded and hi there");
@@ -7,10 +8,52 @@ document.addEventListener('DOMContentLoaded', () => {
     myBlock.innerText = "hello World";
     document.body.appendChild(myBlock);
     styles();
-
-})
+    myFunctionList = document.createElement('div');
+    document.body.appendChild(myFunctionList);
+});
 
 //Keyboard Events 
+document.addEventListener('keydown', (e) => {
+    let keyC = e.keyCode;
+    if (keyC === 37) {
+        addFun('left');
+        myBlock.style.backgroundColor = randomColor();
+    } else if (keyC === 38) {
+        addFun('top');
+        myBlock.style.backgroundColor = randomColor();
+    } else if (keyC === 39) {
+        addFun('right');
+        myBlock.style.backgroundColor = randomColor();
+    } else if (keyC === 40) {
+        addFun('down');
+        myBlock.style.backgroundColor = randomColor();
+    } else if (keyC === 67 || keyC === 32) {
+        myBlock.style.backgroundColor = randomColor();
+    }
+
+    //console.log(keyC);
+});
+
+//function which pushes the mover commands to the list
+
+function addFun(val) {
+    funList.push(val);
+    //console.log(funList);
+    let span = document.createElement('span');
+    span.textContent = '+' + val;
+    span.style.padding = '15px';
+    span.style.border = '1px solid black';
+    myFunctionList.appendChild(span);
+    span.addEventListener('mouseover', () => {
+        span.style.backgroundColor = "red";
+        span.style.color = "white";
+    })
+    span.addEventListener('mouseout', () => {
+        span.style.backgroundColor = "white";
+        span.style.color = 'black';
+    })
+}
+
 
 //Styles
 function styles() {
@@ -57,17 +100,7 @@ function styles() {
     }
 }
 
-document.addEventListener('keydown', (e) => {
-    let keyC = e.keyCode;
-    if (keyC === 37) {
-        goLeft();
-    } else if (keyC === 38) {
-        goTop();
-    } else if (keyC === 39) {
-        goRight();
-    } else if (keyC === 40) {
-        goDown();
-    }
-
-    console.log(keyC);
-});
+//Random colors
+function randomColor() {
+    return '#' + Math.random().toString(16).substr(-6);
+}
