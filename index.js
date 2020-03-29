@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
+//Keyboard Events 
+
 //Styles
 function styles() {
     let S = myBlock.style;
@@ -54,3 +56,18 @@ function styles() {
         myBlock.style.top = temp + 'px';
     }
 }
+
+document.addEventListener('keydown', (e) => {
+    let keyC = e.keyCode;
+    if (keyC === 37) {
+        goLeft();
+    } else if (keyC === 38) {
+        goTop();
+    } else if (keyC === 39) {
+        goRight();
+    } else if (keyC === 40) {
+        goDown();
+    }
+
+    console.log(keyC);
+});
