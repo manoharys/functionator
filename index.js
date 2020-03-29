@@ -3,7 +3,7 @@ let myFunctionList;
 let funList = [];
 document.addEventListener('DOMContentLoaded', () => {
 
-    console.log("Loaded and hi there");
+    // console.log("Loaded");
     myBlock = document.createElement('div');
     myBlock.innerText = "hello World";
     document.body.appendChild(myBlock);
@@ -27,23 +27,55 @@ document.addEventListener('keydown', (e) => {
     } else if (keyC === 40) {
         addFun('down');
         myBlock.style.backgroundColor = randomColor();
-    } else if (keyC === 67 || keyC === 32) {
+    } else if (keyC === 67) {
         myBlock.style.backgroundColor = randomColor();
+    } else if (keyC === 13 || keyC === 32) {
+        mover();
     }
 
     //console.log(keyC);
 });
 
+//Mover function 
+function mover() {
+    if (funList.length > 0) {
+        let cur = myBlock.getBoundingClientRect();
+        // console.log(cur);
+        let element = funList.shift();
+        let item = element.textContent.replace("+", "");
+        // console.log(element);
+        // console.log(item);
+        myFunctionList.removeChild(element);
+        myBlock.style.innerText = "Move" + item;
+        if (item == "left") {
+            myBlock.style.left = cur.left - cur.width + "px";
+        }
+        if (item == "right") {
+            myBlock.style.left = cur.left + cur.width + "px";
+        }
+        if (item == "top") {
+            myBlock.style.top = cur.top - cur.height + "px";
+        }
+        if (item == "down") {
+            myBlock.style.top = cur.top + cur.height + "px";
+        }
+        setTimeout(mover, 400);
+    }
+}
+
+
+
 //function which pushes the mover commands to the list
 
 function addFun(val) {
-    funList.push(val);
+
     //console.log(funList);
     let span = document.createElement('span');
     span.textContent = '+' + val;
     span.style.padding = '15px';
     span.style.border = '1px solid black';
     myFunctionList.appendChild(span);
+    funList.push(span);
     span.addEventListener('mouseover', () => {
         span.style.backgroundColor = "red";
         span.style.color = "white";
