@@ -1,6 +1,7 @@
 let myBlock;
 let myFunctionList;
 let funList = [];
+let movementArray = ['left', 'right', 'top', 'down'];
 document.addEventListener('DOMContentLoaded', () => {
 
     // console.log("Loaded");
@@ -27,6 +28,9 @@ document.addEventListener('keydown', (e) => {
     } else if (keyC === 40) {
         addFun('down');
         myBlock.style.backgroundColor = randomColor();
+    } else if (keyC === 82) {
+        let temp = movementArray[Math.floor(Math.random() * movementArray.length)];
+        addFun(temp);
     } else if (keyC === 67) {
         myBlock.style.backgroundColor = randomColor();
     } else if (keyC === 13 || keyC === 32) {
@@ -46,7 +50,7 @@ function mover() {
         // console.log(element);
         // console.log(item);
         myFunctionList.removeChild(element);
-        myBlock.style.innerText = "Move" + item;
+        myBlock.innerHTML = "Move" + item;
         if (item == "left") {
             myBlock.style.left = cur.left - cur.width + "px";
         }
@@ -59,7 +63,10 @@ function mover() {
         if (item == "down") {
             myBlock.style.top = cur.top + cur.height + "px";
         }
-        setTimeout(mover, 400);
+        setTimeout(mover, 300);
+
+    } else {
+        myBlock.innerHTML = "setPath";
     }
 }
 
@@ -79,10 +86,16 @@ function addFun(val) {
     span.addEventListener('mouseover', () => {
         span.style.backgroundColor = "red";
         span.style.color = "white";
-    })
+    });
     span.addEventListener('mouseout', () => {
         span.style.backgroundColor = "white";
         span.style.color = 'black';
+    });
+    span.addEventListener('click', () => {
+        let curIndex = funList.indexOf(span);
+
+        let tempRemove = funList.splice(curIndex);
+        myFunctionList.removeChild(span);
     })
 }
 
